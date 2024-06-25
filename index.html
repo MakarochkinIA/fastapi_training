@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SSE Example with Redis</title>
+</head>
+<body>
+    <h1>Server-Sent Events with Redis</h1>
+    <div id="events"></div>
+
+    <script>
+        const eventSource = new EventSource("localhost:8000/notify");
+
+        eventSource.onmessage = function(event) {
+            const newElement = document.createElement("div");
+            newElement.innerHTML = event.data;
+            document.getElementById("events").appendChild(newElement);
+        };
+
+        eventSource.onerror = function(event) {
+            console.error("EventSource failed:", event);
+        };
+    </script>
+</body>
+</html>
